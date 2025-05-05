@@ -41,8 +41,8 @@ int main()
     }
 
     std::cout << "found bytes" << std::endl;
-    std::cout.write(buffer, bytesRead);
-    std::cout << std::endl;
+    // std::cout.write(buffer, bytesRead);
+    // std::cout << std::endl;
 
     // coyote stuff
 
@@ -63,10 +63,22 @@ int main()
     coyote_thread->invoke(coyote::CoyoteOper::LOCAL_WRITE, &sg_b);
     while (
         coyote_thread->checkCompleted(coyote::CoyoteOper::LOCAL_WRITE) != 1 ||
-        coyote_thread->checkCompleted(coyote::CoyoteOper::LOCAL_READ) != 2)
+        coyote_thread->checkCompleted(coyote::CoyoteOper::LOCAL_READ) != 1)
     { // twiddle thumbs
     }
     std::cout << "WE HEARD BACK FROM COYOTE WOOHOOO:" << std::endl;
+    {
+        FILE *fp = std::fopen("/home/vvitez/testoutput.bin", "wb");
+        if (fp)
+        {
+            std::fwrite(b, 1, BUF_SIZE, fp);
+            std::fclose(fp);
+        }
+        else
+        {
+            std::cerr << "Failed to open testoutput.bin for writing\n";
+        }
+    }
 
     return 0;
 }
