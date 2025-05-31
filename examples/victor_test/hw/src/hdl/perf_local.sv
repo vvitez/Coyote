@@ -1,9 +1,8 @@
 `timescale 1ns / 1ps
 
-import lynxTypes::*;
 
 `include "axi_macros.svh"
-import lynxTypes::*;  // your axisStream_t
+import lynxTypes::*; 
 
 module perf_local #(
   parameter int N_BEATS = 16    // 16×64B = 1024B packet
